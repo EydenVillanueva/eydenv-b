@@ -11,7 +11,7 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="site-title" href="/">{{ site.name }}</a>
+    <a class="site-title" href="/" aria-label="eydenv - Inicio" data-logo></a>
     <nav>
       <a href="/">Inicio</a>
       <a href="/#articulos">Artículos</a>
@@ -25,5 +25,14 @@
   <footer class="site-footer">
     <p>&copy; {{ year }} {{ site.name }}</p>
   </footer>
+
+  <script>
+    window.__LOGO_GIFS__ = [
+      {%- for gif in logo.gifs %}
+      "{{ ('/assets/gifs/' + gif) | url }}"{% if not loop.last %},{% endif %}
+      {%- endfor %}
+    ];
+  </script>
+  <script src="/assets/js/logo.js"></script>
 </body>
 </html>
