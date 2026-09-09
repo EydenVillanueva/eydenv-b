@@ -4,6 +4,8 @@
 {% include "partials/head.njk" %}
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
   <div class="app-shell">
     <aside class="site-aside">
       <div class="aside-top">
@@ -56,7 +58,7 @@
       <p class="aside-copyright">&copy; {{ year }} {{ site.name }}</p>
     </aside>
 
-    <main class="site-main">
+    <main class="site-main" id="main-content" tabindex="-1">
       {{ content | safe }}
     </main>
   </div>

@@ -13,7 +13,16 @@ I chose [Eleventy](https://www.11ty.dev/) because:
 
 - It doesn't need a frontend framework to work.
 - It generates static HTML, fast to serve and easy to deploy.
-- Each article is just a `.md` file with a bit of front matter.
+- Each article is just a `.md` file with a bit of front matter:
+
+```yaml
+---
+title: Article title
+description: One sentence summarizing the article.
+date: 2026-01-01
+tags: [eleventy, javascript]
+---
+```
 
 ## Project structure
 

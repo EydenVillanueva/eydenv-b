@@ -2,11 +2,14 @@ const fs = require("node:fs");
 const path = require("node:path");
 const crypto = require("node:crypto");
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
+const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
+  eleventyConfig.addPlugin(syntaxHighlight);
 
   eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addPassthroughCopy("src/robots.txt");
 
   eleventyConfig.addFilter("cacheBust", (url) => {
     const filePath = path.join(__dirname, "src", url);
@@ -22,6 +25,8 @@ module.exports = function (eleventyConfig) {
       timeZone: "UTC",
     }).format(dateObj);
   });
+
+  eleventyConfig.addFilter("isoDate", (dateObj) => dateObj.toISOString());
 
   eleventyConfig.addFilter("groupByYear", (posts) => {
     const byYear = new Map();

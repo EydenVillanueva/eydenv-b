@@ -6,7 +6,7 @@ Blog técnico personal de Eyden Villanueva (Software Engineer), construido con [
 
 - `npm start` — servidor de desarrollo con recarga automática (`eleventy --serve`, puerto 8080).
 - `npm run build` — build de producción a `_site/` (gitignored).
-- Sin framework de frontend. Sí hay JS vanilla mínimo y sin dependencias (`src/assets/js/`): el logo animado y el toggle de tema — cualquier adición nueva debe justificarse con ese mismo criterio.
+- Sin framework de frontend. Sí hay JS vanilla mínimo y sin dependencias (`src/assets/js/`): el logo animado, el toggle de tema, y el filtro/buscador del blog — cualquier adición nueva debe justificarse con ese mismo criterio. El resaltado de sintaxis, en cambio, corre 100% en build-time (ver más abajo) — cero JS de cliente ahí.
 
 ## Estructura
 
@@ -19,6 +19,10 @@ Blog técnico personal de Eyden Villanueva (Software Engineer), construido con [
 - `src/posts/*.md` — artículos del blog. Ver el skill `technical-prose-styling` antes de escribir uno (incluye el campo `tags:` que alimenta los filtros).
 - `src/assets/css/tokens.css` — tokens de color (light/dark) y el mecanismo del toggle explícito. `src/assets/css/style.css` — el resto de tokens (tipografía, espaciado) y todos los componentes. Ver el skill `design-tokens-css` antes de tocar cualquiera de los dos.
 - `src/assets/fonts/` — Geist, Satoshi y JetBrains Mono, self-hosted (decisión deliberada: mismo origen que el resto del sitio, sin depender de Fontshare/Google Fonts en runtime ni en el build de CI).
+- `src/assets/images/` — `favicon.svg` (navegadores modernos) + `favicon.ico`/`apple-touch-icon.png` (fallback) y `og-image.png` (1200×630, usada por los meta tags Open Graph/Twitter Card en `partials/head.njk`). Los tres se generaron con Pillow a partir de los tokens/fuentes reales del sitio, no son assets genéricos — si cambia `--accent` o el wordmark, regenerarlos para que no queden desincronizados.
+- `src/sitemap.njk` (`permalink: /sitemap.xml`) y `src/robots.txt` — SEO básico. El sitemap lista las páginas a mano (home/about/projects) más `collections.post`; si se agrega una página de nivel superior nueva, hay que añadirla ahí también, no se autogenera.
+- `src/404.njk` (`permalink: /404.html`) — página 404 con el mismo layout `sidebar.njk`. GitHub Pages la sirve automáticamente para cualquier ruta no encontrada dentro de `/eydenv-b/`.
+- Resaltado de sintaxis en bloques de código vía `@11ty/eleventy-plugin-syntaxhighlight` (build-time, cero JS de cliente). Los colores de los tokens de Prism reusan los 4 tokens de texto/accent ya existentes — ver el skill `design-tokens-css` antes de tocarlos.
 
 ## Gotcha importante: pathPrefix y GitHub Pages
 
