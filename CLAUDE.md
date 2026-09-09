@@ -23,6 +23,7 @@ Blog técnico personal de Eyden Villanueva (Software Engineer), construido con [
 - `src/sitemap.njk` (`permalink: /sitemap.xml`) y `src/robots.txt` — SEO básico. El sitemap lista las páginas a mano (home/about/projects) más `collections.post`; si se agrega una página de nivel superior nueva, hay que añadirla ahí también, no se autogenera.
 - `src/404.njk` (`permalink: /404.html`) — página 404 con el mismo layout `sidebar.njk`. GitHub Pages la sirve automáticamente para cualquier ruta no encontrada dentro de `/eydenv-b/`.
 - Resaltado de sintaxis en bloques de código vía `@11ty/eleventy-plugin-syntaxhighlight` (build-time, cero JS de cliente). Los colores de los tokens de Prism reusan los 4 tokens de texto/accent ya existentes — ver el skill `design-tokens-css` antes de tocarlos.
+- `src/feed.njk` (`permalink: /feed.xml`) — RSS 2.0 vía `@11ty/eleventy-plugin-rss`. El paquete exporta `{ rssPlugin }` con nombre, no como default de CommonJS — `const { rssPlugin } = require(...)`. Con autodiscovery (`<link rel="alternate" type="application/rss+xml">` en `partials/head.njk`) y un ícono propio en el aside.
 
 ## Gotcha importante: pathPrefix y GitHub Pages
 
@@ -31,6 +32,8 @@ Este repo se sirve como *project page* (`https://eydenvillanueva.github.io/eyden
 `EleventyHtmlBasePlugin` (registrado en `eleventy.config.js`) ya reescribe automáticamente los atributos `href`/`src` del HTML final para incluir el `pathPrefix`. **Nunca encadenar también el filtro `| url`** en un template sobre esos atributos — ya se hizo ese error una vez y duplicó el prefijo en producción (`/eydenv-b/eydenv-b/...`), rompiendo todos los links y assets. Usar rutas planas root-relative (`/assets/css/style.css`, `/`) en los templates y dejar que el plugin haga el resto.
 
 Por la misma razón, las rutas de fuentes dentro de `style.css` (`@font-face`) son **relativas** (`../fonts/archivo.woff2`), no root-relative — así funcionan sin importar el `pathPrefix`, porque el CSS no pasa por el plugin.
+
+Misma familia de bug, tercera vez que aparece: el filtro `absoluteUrl` de `@11ty/eleventy-plugin-rss` (usado para construir URLs absolutas fuera de HTML — RSS, sitemap) internamente hace algo equivalente a `new URL(rutaAbsoluta, site.url)`, y por la spec de URL, una ruta que empieza con `/` **reemplaza** el path del base en vez de concatenarse — así que `absoluteUrl("/posts/x/", "https://.../eydenv-b")` da `https://.../posts/x/`, perdiendo `/eydenv-b`. Se descubrió al construir `feed.xml` (URLs sin el pathPrefix). Solución: no usar `absoluteUrl` ni `htmlToAbsoluteUrls` de ese plugin para nada que necesite el pathPrefix — concatenar a mano `{{ site.url }}{{ post.url }}`, igual que ya se hace en `sitemap.njk` y en los meta tags Open Graph.
 
 ## Despliegue
 
