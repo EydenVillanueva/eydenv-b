@@ -1,0 +1,30 @@
+---
+layout: base.njk
+title: Inicio
+---
+<section class="hero">
+  <h1>{{ site.name }}</h1>
+  <p class="hero-role">{{ site.role }} · {{ site.age }} años · {{ site.location }}</p>
+  <p class="hero-bio">
+    Blog técnico donde escribo sobre desarrollo de software, infraestructura y las cosas que voy aprendiendo en el camino.
+  </p>
+  <ul class="hero-links">
+    <li><a href="{{ site.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></li>
+    <li><a href="{{ site.github }}" target="_blank" rel="noopener">GitHub</a></li>
+    <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+    <li><a href="tel:{{ site.phone | replace(' ', '') }}">{{ site.phone }}</a></li>
+  </ul>
+</section>
+
+<section id="articulos" class="posts">
+  <h2>Últimos artículos</h2>
+  <ul class="post-list">
+    {%- for post in collections.post | reverse %}
+    <li>
+      <a class="post-list-title" href="{{ post.url | url }}">{{ post.data.title }}</a>
+      <span class="post-date">{{ post.date | readableDate }}</span>
+      {% if post.data.description %}<p>{{ post.data.description }}</p>{% endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+</section>

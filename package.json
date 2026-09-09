@@ -1,0 +1,17 @@
+{
+  "name": "eydenv-b",
+  "version": "1.0.0",
+  "description": "Blog técnico de Eyden Villanueva, construido con Eleventy.",
+  "main": "eleventy.config.js",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "keywords": [],
+  "author": "Eyden Villanueva",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6"
+  }
+}

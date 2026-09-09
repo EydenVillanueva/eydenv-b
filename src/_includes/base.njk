@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} · {{ site.name }}</title>
+  <meta name="description" content="{{ description or (site.name + ' — ' + site.role) }}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | url }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="site-title" href="{{ '/' | url }}">{{ site.name }}</a>
+    <nav>
+      <a href="{{ '/' | url }}">Inicio</a>
+      <a href="{{ '/' | url }}#articulos">Artículos</a>
+    </nav>
+  </header>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; {{ year }} {{ site.name }}</p>
+  </footer>
+</body>
+</html>
