@@ -1,55 +1,58 @@
 # eydenv-b
 
-Blog técnico de Eyden Villanueva, construido con [Eleventy](https://www.11ty.dev/) sobre archivos Markdown.
+Eyden Villanueva's technical blog, built with [Eleventy](https://www.11ty.dev/) on top of Markdown files.
 
-## Estructura
+## Structure
 
 ```
 src/
-  _data/site.json     -> datos de contacto/perfil usados en la landing page
-  _includes/           -> layouts (base.njk, post.njk)
-  posts/                -> artículos del blog (.md)
-  assets/css/style.css  -> estilos
-  index.njk             -> landing page
-eleventy.config.js       -> configuración de Eleventy
-.github/workflows/deploy.yml -> despliegue automático a GitHub Pages
+  _data/site.json          -> contact/profile data used across the site
+  _includes/                -> layouts (base.njk, sidebar.njk, post.njk) and shared partials
+  posts/                     -> blog articles (.md)
+  assets/css/                -> tokens.css (color) and style.css (everything else)
+  index.njk                  -> the blog listing (tags, search, posts grouped by year)
+  about.njk                  -> /about/
+  projects.njk                -> /projects/
+eleventy.config.js            -> Eleventy configuration
+.github/workflows/deploy.yml  -> automatic GitHub Pages deployment
 ```
 
-## Desarrollo local
+## Local development
 
 ```bash
 npm install
 npm start
 ```
 
-Esto levanta un servidor local con recarga automática (por defecto en `http://localhost:8080`).
+Starts a local dev server with live reload (defaults to `http://localhost:8080`).
 
-## Nuevo artículo
+## New article
 
-Crea un archivo `.md` dentro de `src/posts/` con front matter:
+Create a `.md` file inside `src/posts/` with front matter:
 
 ```md
 ---
-title: Título del artículo
-description: Resumen corto para la lista de artículos.
+title: Article title
+description: Short summary shown in the article list.
 date: 2026-01-01
+tags: [eleventy, javascript]
 ---
 
-Contenido en Markdown...
+Markdown content...
 ```
 
-## Build de producción
+## Production build
 
 ```bash
 npm run build
 ```
 
-Genera el sitio estático en `_site/`.
+Generates the static site into `_site/`.
 
-## Despliegue (GitHub Pages)
+## Deployment (GitHub Pages)
 
-El repositorio incluye un workflow de GitHub Actions (`.github/workflows/deploy.yml`) que construye el sitio y lo publica en GitHub Pages en cada push a `main`.
+The repo includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that builds the site and publishes it to GitHub Pages on every push to `main`.
 
-En GitHub, ve a **Settings → Pages** y configura **Source: GitHub Actions** (solo necesario la primera vez).
+On GitHub, go to **Settings → Pages** and set **Source: GitHub Actions** (only needed once).
 
-El sitio se sirve como página de proyecto en `https://EydenVillanueva.github.io/eydenv-b/`, por lo que el build usa `PATH_PREFIX=/eydenv-b/`.
+The site is served as a project page at `https://EydenVillanueva.github.io/eydenv-b/`, so the build uses `PATH_PREFIX=/eydenv-b/`.

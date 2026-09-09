@@ -4,11 +4,11 @@ title: Blog
 ---
 <section class="page-header">
   <h1>Blog</h1>
-  <p class="page-subtitle">Notas y artículos sobre desarrollo de software.</p>
+  <p class="page-subtitle">Notes and articles about software development.</p>
 </section>
 
-<div class="tag-filters" role="group" aria-label="Filtrar por tema">
-  <button type="button" class="tag-filter active" data-tag="all">Todos</button>
+<div class="tag-filters" role="group" aria-label="Filter by topic">
+  <button type="button" class="tag-filter active" data-tag="all">All</button>
   {%- for tag in collections.postTags %}
   <button type="button" class="tag-filter" data-tag="{{ tag }}">#{{ tag }}</button>
   {%- endfor %}
@@ -19,15 +19,15 @@ title: Blog
     <circle cx="11" cy="11" r="8"></circle>
     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
   </svg>
-  <input type="search" id="post-search" placeholder="Buscar en {{ collections.post.length }} artículos..." aria-label="Buscar artículos">
+  <input type="search" id="post-search" placeholder="Search {{ collections.post.length }} articles..." aria-label="Search articles">
 </div>
 
-<p class="no-results" hidden>No se encontraron artículos.</p>
+<p class="no-results" hidden>No articles found.</p>
 
 <div class="post-groups">
   {%- for group in collections.post | groupByYear %}
   <section class="post-year-group">
-    <h2>{{ group.year }} <span class="count-pill">{{ group.posts.length }} {{ "artículo" if group.posts.length == 1 else "artículos" }}</span></h2>
+    <h2>{{ group.year }} <span class="count-pill">{{ group.posts.length }} {{ "article" if group.posts.length == 1 else "articles" }}</span></h2>
     <ul class="post-list">
       {%- for post in group.posts %}
       <li class="post-item" data-tags="{{ post.data.tags | join(',') }}" data-title="{{ post.data.title | lower }}">

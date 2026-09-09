@@ -15,7 +15,7 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter("readableDate", (dateObj) => {
-    return new Intl.DateTimeFormat("es-MX", {
+    return new Intl.DateTimeFormat("en-US", {
       year: "numeric",
       month: "long",
       day: "numeric",
