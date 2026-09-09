@@ -5,7 +5,9 @@ description: Rules for extending the color token system (tokens.css) and the lig
 
 # Design tokens (eydenv-b)
 
-Color tokens live in their own file, [src/assets/css/tokens.css](../../../src/assets/css/tokens.css). Everything else (spacing, type scale, font stacks, `--max-width`) stays in the `:root` block at the top of [src/assets/css/style.css](../../../src/assets/css/style.css). Never hardcode a color, spacing value, or font stack directly in a rule — add or reuse a token instead. A one-off `#e63956` or `1.5rem` sprinkled into a selector is the thing this skill exists to prevent.
+Color tokens live in their own file, [src/assets/css/tokens.css](../../../src/assets/css/tokens.css). Everything else (spacing, type scale, font stacks, `--max-width`) stays in the `:root` block at the top of [src/assets/css/style.css](../../../src/assets/css/style.css). Never hardcode a color, spacing value, or font stack directly in a rule — add or reuse a token instead. A one-off `#2454ff` or `1.5rem` sprinkled into a selector is the thing this skill exists to prevent.
+
+The brand color is blue (`--accent`), not a placeholder — this was tried as crimson for one iteration and reverted on explicit user feedback ("no me gustó"), so don't reintroduce a different hue without being asked.
 
 ## Color token inventory
 
@@ -14,7 +16,7 @@ Color tokens live in their own file, [src/assets/css/tokens.css](../../../src/as
 - `--border-subtle` — 1px hairline dividers only.
 - `--text-primary` — headings and body copy.
 - `--text-muted` — metadata, dates, tags, secondary copy.
-- `--accent` / `--accent-hover` — links, focus, the logo mark, and interactive hover states. `--accent-hover` is deliberately the *livelier* shade in both themes (brighter in light mode, lighter in dark mode) — hover brightens, it doesn't darken.
+- `--accent` / `--accent-hover` — links, focus, the logo mark, and interactive hover states. In light mode, hover *deepens* the blue (a pressed feel against the light canvas); in dark mode, hover *lightens* it (a glow feel against the dark canvas). This asymmetry is intentional, not a bug — don't "fix" the two to move in the same direction. Whenever either value changes, recompute the actual contrast ratio (see `accessibility-and-perf`) rather than assuming the pattern still holds.
 
 Every one of these is defined twice per theme, on purpose — see "Theme architecture" below. Never `!important` your way around it; add the value in both places or the toggle and the OS-preference fallback will disagree with each other.
 
