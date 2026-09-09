@@ -1,20 +1,99 @@
+@font-face {
+  font-family: "Geist";
+  src: url("../fonts/geist-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("../fonts/geist-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("../fonts/satoshi-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("../fonts/satoshi-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("../fonts/satoshi-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("../fonts/satoshi-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/jetbrains-mono-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/jetbrains-mono-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light dark;
-  --bg: #ffffff;
-  --fg: #1a1a1a;
-  --muted: #5f6368;
+  --bg: #fbfbfa;
+  --fg: #16171a;
+  --muted: #63666e;
   --accent: #2454ff;
-  --border: #e5e7eb;
+  --border: #e6e6e3;
+  --code-bg: #f0f0ee;
   --max-width: 720px;
+
+  --font-heading: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #12131a;
-    --fg: #f2f2f2;
-    --muted: #a1a1aa;
-    --accent: #7aa2ff;
-    --border: #2a2b36;
+    --bg: #101114;
+    --fg: #f2f2f0;
+    --muted: #9a9ca3;
+    --accent: #86a3ff;
+    --border: #26272c;
+    --code-bg: #1b1c20;
   }
 }
 
@@ -26,8 +105,21 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.6;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--fg);
 }
 
 .site-header {
@@ -36,21 +128,29 @@ body {
   justify-content: space-between;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 1.5rem 1.25rem;
+  padding: var(--space-6) var(--space-4);
 }
 
 .site-title {
+  font-family: var(--font-heading);
   font-weight: 700;
+  font-size: 1rem;
   color: var(--fg);
   text-decoration: none;
-  font-size: 1.05rem;
+}
+
+.site-header nav {
+  display: flex;
+  gap: var(--space-6);
 }
 
 .site-header nav a {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--muted);
   text-decoration: none;
-  margin-left: 1.25rem;
-  font-size: 0.95rem;
 }
 
 .site-header nav a:hover {
@@ -60,51 +160,65 @@ body {
 main {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 1rem 1.25rem 3rem;
+  padding: var(--space-4) var(--space-4) var(--space-16);
 }
 
 .hero {
-  padding: 2rem 0 2.5rem;
+  padding: var(--space-12) 0 var(--space-8);
   border-bottom: 1px solid var(--border);
-  margin-bottom: 2.5rem;
+  margin-bottom: var(--space-12);
 }
 
 .hero h1 {
-  margin: 0 0 0.4rem;
-  font-size: 2rem;
+  margin: 0 0 var(--space-2);
+  font-size: 2.5rem;
 }
 
 .hero-role {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
   color: var(--muted);
-  margin: 0 0 1rem;
+  margin: 0 0 var(--space-4);
+  letter-spacing: 0.01em;
 }
 
 .hero-bio {
-  max-width: 60ch;
+  max-width: 58ch;
+  font-size: 1.05rem;
 }
 
 .hero-links {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1.25rem;
+  gap: var(--space-2);
   padding: 0;
-  margin: 1.25rem 0 0;
+  margin: var(--space-6) 0 0;
 }
 
 .hero-links a {
-  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--fg);
   text-decoration: none;
-  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: var(--space-2) var(--space-4);
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 
 .hero-links a:hover {
-  text-decoration: underline;
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .posts h2 {
   font-size: 1.3rem;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-6);
 }
 
 .post-list {
@@ -114,7 +228,7 @@ main {
 }
 
 .post-list li {
-  padding: 1rem 0;
+  padding: var(--space-6) 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -122,58 +236,110 @@ main {
   padding-top: 0;
 }
 
+.post-list li:last-child {
+  border-bottom: none;
+}
+
+.post-date {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  background: var(--code-bg);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  margin-bottom: var(--space-2);
+}
+
 .post-list-title {
+  display: block;
   color: var(--fg);
   text-decoration: none;
-  font-weight: 600;
-  font-size: 1.05rem;
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: var(--space-1);
 }
 
 .post-list-title:hover {
   color: var(--accent);
 }
 
-.post-date {
-  display: block;
+.post-list p {
   color: var(--muted);
-  font-size: 0.85rem;
-  margin-top: 0.15rem;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.post-header {
+  margin-bottom: var(--space-8);
 }
 
 .post-header h1 {
-  margin-bottom: 0.25rem;
+  font-size: 2rem;
+  margin: var(--space-2) 0 0;
 }
 
 .post-meta {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--muted);
-  font-size: 0.9rem;
-  margin-top: 0;
+  background: var(--code-bg);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  margin: 0;
+}
+
+.post h2 {
+  font-size: 1.4rem;
+  margin-top: var(--space-8);
+}
+
+.post h3 {
+  font-size: 1.15rem;
+  margin-top: var(--space-6);
+}
+
+.post p,
+.post li {
+  font-size: 1.05rem;
 }
 
 .post pre {
-  background: var(--border);
-  padding: 1rem;
+  background: var(--code-bg);
+  padding: var(--space-4);
   overflow-x: auto;
-  border-radius: 6px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
 }
 
 .post code {
-  background: var(--border);
-  padding: 0.15rem 0.35rem;
+  font-family: var(--font-mono);
+  background: var(--code-bg);
+  padding: 0.15rem 0.4rem;
   border-radius: 4px;
-  font-size: 0.9em;
+  font-size: 0.85em;
 }
 
 .post pre code {
   background: none;
   padding: 0;
+  font-size: inherit;
 }
 
 .post-back {
-  margin-top: 2.5rem;
+  margin-top: var(--space-12);
 }
 
 .post-back a {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
   color: var(--accent);
   text-decoration: none;
 }
@@ -181,7 +347,22 @@ main {
 .site-footer {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 1.5rem 1.25rem 2.5rem;
+  padding: var(--space-6) var(--space-4) var(--space-12);
+  font-family: var(--font-mono);
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
 }

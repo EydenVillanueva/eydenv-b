@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }} · {{ site.name }}</title>
   <meta name="description" content="{{ description or (site.name + ' — ' + site.role) }}">
+  <link rel="preload" href="{{ '/assets/fonts/satoshi-regular.woff2' | url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ '/assets/fonts/geist-bold.woff2' | url }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | url }}">
 </head>
 <body>

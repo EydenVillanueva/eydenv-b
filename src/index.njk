@@ -21,8 +21,8 @@ title: Inicio
   <ul class="post-list">
     {%- for post in collections.post | reverse %}
     <li>
-      <a class="post-list-title" href="{{ post.url | url }}">{{ post.data.title }}</a>
       <span class="post-date">{{ post.date | readableDate }}</span>
+      <a class="post-list-title" href="{{ post.url | url }}">{{ post.data.title }}</a>
       {% if post.data.description %}<p>{{ post.data.description }}</p>{% endif %}
     </li>
     {%- endfor %}
