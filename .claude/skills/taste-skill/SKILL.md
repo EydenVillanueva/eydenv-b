@@ -9,7 +9,7 @@ description: A self-critique pass for this specific site's aesthetic before call
 
 ## Does it use what's already there?
 
-- Every color traces back to a token in [style.css](../../../src/assets/css/style.css) (`--bg`, `--fg`, `--muted`, `--accent`, `--border`, `--code-bg`). A new hex value is a signal to stop and reconsider, not to add a ninth token unless there's a real reason.
+- Every color traces back to a token in [tokens.css](../../../src/assets/css/tokens.css) (`--bg-canvas`, `--bg-surface`, `--border-subtle`, `--text-primary`, `--text-muted`, `--accent`, `--accent-hover`). A new hex value is a signal to stop and reconsider, not to add an eighth token unless there's a real reason — and if you do add one, it needs a value in all three layers described in `design-tokens-css` (base, OS-preference media query, `[data-theme]`), not just the light default.
 - Every typeface is one of the three already loaded (Geist / Satoshi / JetBrains Mono), used per the role rule in `design-tokens-css`. A fourth font, or an established font used outside its role (Geist in a paragraph, Satoshi in a code sample), doesn't belong here.
 - Spacing comes from the `--space-*` scale, not an arbitrary `margin: 18px`.
 
@@ -36,4 +36,4 @@ Per `frontend-design`'s calibration notes, watch for these landing anyway:
 
 ## Before calling it done
 
-Take a screenshot (or read the accessibility tree) of the affected page in both light and dark color scheme, and at mobile width, not just the default desktop/light view. A change that only got checked once is not verified.
+Take a screenshot (or read the accessibility tree) of the affected page in both light and dark color scheme, and at mobile width, not just the default desktop/light view. Since the site has an explicit light/dark toggle (not just OS preference), check both paths: the OS-preference default *and* an explicit click of the toggle — they're driven by different CSS layers (see `design-tokens-css`) and can drift out of sync if a new rule only accounts for one of them. A change that only got checked once is not verified.

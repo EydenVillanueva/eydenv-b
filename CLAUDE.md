@@ -6,7 +6,7 @@ Blog técnico personal de Eyden Villanueva (Software Engineer), construido con [
 
 - `npm start` — servidor de desarrollo con recarga automática (`eleventy --serve`, puerto 8080).
 - `npm run build` — build de producción a `_site/` (gitignored).
-- Sin framework de frontend ni JavaScript del lado del cliente: HTML/CSS estático únicamente.
+- Sin framework de frontend. Sí hay JS vanilla mínimo y sin dependencias (`src/assets/js/`): el logo animado y el toggle de tema — cualquier adición nueva debe justificarse con ese mismo criterio.
 
 ## Estructura
 
@@ -14,7 +14,7 @@ Blog técnico personal de Eyden Villanueva (Software Engineer), construido con [
 - `src/_data/site.json` — única fuente de verdad para nombre, rol, edad, ubicación, email, teléfono y links (LinkedIn/GitHub). La landing page y cualquier otro lugar que muestre esta info debe leerla de aquí, no hardcodearla.
 - `src/_includes/base.njk`, `post.njk` — layouts Nunjucks.
 - `src/posts/*.md` — artículos del blog. Ver el skill `technical-prose-styling` antes de escribir uno.
-- `src/assets/css/style.css` — único stylesheet, con el sistema de design tokens. Ver el skill `design-tokens-css` antes de tocarlo.
+- `src/assets/css/tokens.css` — tokens de color (light/dark) y el mecanismo del toggle explícito. `src/assets/css/style.css` — el resto de tokens (tipografía, espaciado) y todos los componentes. Ver el skill `design-tokens-css` antes de tocar cualquiera de los dos.
 - `src/assets/fonts/` — Geist, Satoshi y JetBrains Mono, self-hosted (decisión deliberada: mismo origen que el resto del sitio, sin depender de Fontshare/Google Fonts en runtime ni en el build de CI).
 
 ## Gotcha importante: pathPrefix y GitHub Pages

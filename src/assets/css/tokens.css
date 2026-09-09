@@ -1,0 +1,50 @@
+/*
+  Light values live on bare :root. Dark values are defined twice on purpose:
+  once under the OS media query (for visitors who haven't chosen explicitly —
+  this stays reactive to a live OS theme change), and once under
+  [data-theme="dark"] (for an explicit toggle choice, which must win over the
+  OS setting in both directions). :not([data-theme="light"]) stops the OS
+  branch from fighting an explicit light choice on a dark-OS system.
+*/
+
+:root {
+  color-scheme: light dark;
+
+  --bg-canvas: #F4F5F8;
+  --bg-surface: #EAEDF4;
+  --border-subtle: #D8DCE6;
+  --text-primary: #151821;
+  --text-muted: #5E6478;
+  --accent: #C72440;
+  --accent-hover: #E63956;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg-canvas: #0A0B10;
+    --bg-surface: #151821;
+    --border-subtle: #2A2E3D;
+    --text-primary: #F4F5F8;
+    --text-muted: #7B8296;
+    --accent: #E63956;
+    --accent-hover: #F0788C;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg-canvas: #0A0B10;
+  --bg-surface: #151821;
+  --border-subtle: #2A2E3D;
+  --text-primary: #F4F5F8;
+  --text-muted: #7B8296;
+  --accent: #E63956;
+  --accent-hover: #F0788C;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
