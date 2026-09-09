@@ -131,10 +131,8 @@ h4 {
   padding: var(--space-6) var(--space-4);
 }
 
-.site-title {
+.logo-mark {
   display: inline-block;
-  width: 97px;
-  height: 24px;
   background-color: var(--fg);
   background-size: cover;
   background-position: center;
@@ -150,9 +148,14 @@ h4 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-title {
+  .logo-mark {
     background-image: none !important;
   }
+}
+
+.site-title {
+  width: 97px;
+  height: 24px;
 }
 
 .site-header nav {
@@ -185,9 +188,16 @@ main {
   margin-bottom: var(--space-12);
 }
 
+.hero-logo {
+  width: 280px;
+  height: 70px;
+  margin-bottom: var(--space-6);
+}
+
 .hero h1 {
   margin: 0 0 var(--space-2);
-  font-size: 2.5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
 .hero-role {

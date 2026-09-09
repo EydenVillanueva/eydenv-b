@@ -1,9 +1,11 @@
 (function () {
-  var el = document.querySelector("[data-logo]");
+  var els = document.querySelectorAll("[data-logo]");
   var gifs = window.__LOGO_GIFS__;
-  if (!el || !gifs || !gifs.length) return;
+  if (!els.length || !gifs || !gifs.length) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   var pick = gifs[Math.floor(Math.random() * gifs.length)];
-  el.style.backgroundImage = 'url("' + pick + '")';
+  els.forEach(function (el) {
+    el.style.backgroundImage = 'url("' + pick + '")';
+  });
 })();
