@@ -123,9 +123,6 @@ h4 {
 }
 
 .site-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--space-6) var(--space-4);
@@ -151,11 +148,6 @@ h4 {
   .logo-mark {
     background-image: none !important;
   }
-}
-
-.site-title {
-  width: 97px;
-  height: 24px;
 }
 
 .site-header nav {
