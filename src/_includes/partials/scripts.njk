@@ -1,0 +1,9 @@
+  <script>
+    window.__LOGO_GIFS__ = [
+      {%- for gif in logo.gifs %}
+      "{{ ('/assets/gifs/' + gif) | url }}"{% if not loop.last %},{% endif %}
+      {%- endfor %}
+    ];
+  </script>
+  <script src="{{ '/assets/js/logo.js' | cacheBust }}"></script>
+  <script src="{{ '/assets/js/theme-toggle.js' | cacheBust }}"></script>

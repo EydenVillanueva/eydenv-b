@@ -24,12 +24,14 @@ Cada artículo requiere:
 title: Título del artículo
 description: Una oración que resume el artículo, usada como <meta description> y como el texto bajo el título en la lista de artículos.
 date: YYYY-MM-DD
+tags: [eleventy, javascript]
 ---
 ```
 
 - `title`: sin punto final, capitalización normal de oración.
-- `description`: una sola oración, apunta a menos de ~160 caracteres (aparece tal cual en la landing page y en el `<meta name="description">` — ver [base.njk](../../../src/_includes/base.njk)).
+- `description`: una sola oración, apunta a menos de ~160 caracteres (aparece tal cual en la lista del blog y en el `<meta name="description">` — ver [base.njk](../../../src/_includes/base.njk)).
 - `date`: fecha real de publicación, formato ISO. El filtro `readableDate` en [eleventy.config.js](../../../eleventy.config.js) la formatea en español y en UTC — no dependas de la hora local.
+- `tags`: 1-3 palabras clave en minúsculas, en inglés técnico estándar (`javascript`, no `js`; `eleventy`, no `11ty`) — alimentan los chips de filtro y el buscador en la página del blog (`src/index.njk`). No uses el valor `post` como tag propio: ese ya lo agrega `src/posts/posts.json` para la colección y se excluye a propósito de lo que se muestra.
 
 ## Nombre de archivo
 

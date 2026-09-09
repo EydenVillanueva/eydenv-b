@@ -7,6 +7,8 @@ description: Rules for extending the color token system (tokens.css) and the lig
 
 Color tokens live in their own file, [src/assets/css/tokens.css](../../../src/assets/css/tokens.css). Everything else (spacing, type scale, font stacks, `--max-width`) stays in the `:root` block at the top of [src/assets/css/style.css](../../../src/assets/css/style.css). Never hardcode a color, spacing value, or font stack directly in a rule — add or reuse a token instead. A one-off `#2454ff` or `1.5rem` sprinkled into a selector is the thing this skill exists to prevent.
 
+Every heading and body size in the file is set in `rem`, on purpose: `rem` is relative to the root (`<html>`) element's font-size, not the browser default directly. The site's actual base size is set once, on `html { font-size: 112.5%; }` (a percentage of the visitor's own browser default, not a hardcoded px value — respects a visitor's own text-size preference instead of overriding it). If reading comfort ever needs to change again, adjust that one line rather than touching individual heading/body rules — every `rem` value in the file scales proportionally for free.
+
 The brand color is blue (`--accent`), not a placeholder — this was tried as crimson for one iteration and reverted on explicit user feedback ("no me gustó"), so don't reintroduce a different hue without being asked.
 
 ## Color token inventory

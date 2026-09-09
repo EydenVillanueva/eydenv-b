@@ -1,62 +1,45 @@
 ---
-layout: base.njk
-title: Inicio
+layout: sidebar.njk
+title: Blog
 ---
-<section class="hero">
-  <div class="hero-logo logo-mark" data-logo aria-hidden="true"></div>
-  <h1>{{ site.name }}</h1>
-  <p class="hero-role">{{ site.role }} · {{ site.age }} años · {{ site.location }}</p>
-  <p class="hero-bio">
-    Blog técnico donde escribo sobre desarrollo de software, infraestructura y las cosas que voy aprendiendo en el camino.
-  </p>
-  <ul class="hero-links">
-    <li>
-      <a href="{{ site.linkedin }}" target="_blank" rel="noopener">
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-          <rect x="2" y="9" width="4" height="12"></rect>
-          <circle cx="4" cy="4" r="2"></circle>
-        </svg>
-        LinkedIn
-      </a>
-    </li>
-    <li>
-      <a href="{{ site.github }}" target="_blank" rel="noopener">
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-        </svg>
-        GitHub
-      </a>
-    </li>
-    <li>
-      <a href="mailto:{{ site.email }}">
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-          <polyline points="22,6 12,13 2,6"></polyline>
-        </svg>
-        {{ site.email }}
-      </a>
-    </li>
-    <li>
-      <a href="tel:{{ site.phone | replace(' ', '') }}">
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
-        </svg>
-        {{ site.phone }}
-      </a>
-    </li>
-  </ul>
+<section class="page-header">
+  <h1>Blog</h1>
+  <p class="page-subtitle">Notas y artículos sobre desarrollo de software.</p>
 </section>
 
-<section id="articulos" class="posts">
-  <h2>Últimos artículos</h2>
-  <ul class="post-list">
-    {%- for post in collections.post | reverse %}
-    <li>
-      <span class="post-date">{{ post.date | readableDate }}</span>
-      <a class="post-list-title" href="{{ post.url }}">{{ post.data.title }}</a>
-      {% if post.data.description %}<p>{{ post.data.description }}</p>{% endif %}
-    </li>
-    {%- endfor %}
-  </ul>
-</section>
+<div class="tag-filters" role="group" aria-label="Filtrar por tema">
+  <button type="button" class="tag-filter active" data-tag="all">Todos</button>
+  {%- for tag in collections.postTags %}
+  <button type="button" class="tag-filter" data-tag="{{ tag }}">#{{ tag }}</button>
+  {%- endfor %}
+</div>
+
+<div class="search-box">
+  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+  <input type="search" id="post-search" placeholder="Buscar en {{ collections.post.length }} artículos..." aria-label="Buscar artículos">
+</div>
+
+<p class="no-results" hidden>No se encontraron artículos.</p>
+
+<div class="post-groups">
+  {%- for group in collections.post | groupByYear %}
+  <section class="post-year-group">
+    <h2>{{ group.year }} <span class="count-pill">{{ group.posts.length }} {{ "artículo" if group.posts.length == 1 else "artículos" }}</span></h2>
+    <ul class="post-list">
+      {%- for post in group.posts %}
+      <li class="post-item" data-tags="{{ post.data.tags | join(',') }}" data-title="{{ post.data.title | lower }}">
+        <span class="post-date">{{ post.date | readableDate }}</span>
+        <a class="post-list-title" href="{{ post.url }}">{{ post.data.title }}</a>
+        {% if post.data.description %}<p>{{ post.data.description }}</p>{% endif %}
+        <div class="post-tags">
+          {%- for tag in post.data.tags %}{% if tag != "post" %}<span class="post-tag">#{{ tag }}</span>{% endif %}{% endfor -%}
+        </div>
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endfor %}
+</div>

@@ -2,6 +2,7 @@
 title: Cómo monté este blog con Eleventy
 description: Un resumen rápido de cómo está armado este sitio y por qué elegí Eleventy para escribir sobre temas técnicos.
 date: 2026-09-08
+tags: [eleventy, javascript]
 ---
 
 Este es el primer artículo del blog. La idea es simple: escribir sobre lo que voy aprendiendo trabajando como Software Engineer, desde notas rápidas hasta guías más largas, usando archivos Markdown como única fuente de contenido.

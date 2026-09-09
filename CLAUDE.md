@@ -11,9 +11,12 @@ Blog técnico personal de Eyden Villanueva (Software Engineer), construido con [
 ## Estructura
 
 - `eleventy.config.js` — configuración: passthrough de `src/assets`, filtro `readableDate` (formatea en `es-MX` y **UTC** deliberadamente, para que la fecha del front matter no se corra un día por zona horaria local), `pathPrefix` vía `PATH_PREFIX` env var.
-- `src/_data/site.json` — única fuente de verdad para nombre, rol, edad, ubicación, email, teléfono y links (LinkedIn/GitHub). La landing page y cualquier otro lugar que muestre esta info debe leerla de aquí, no hardcodearla.
-- `src/_includes/base.njk`, `post.njk` — layouts Nunjucks.
-- `src/posts/*.md` — artículos del blog. Ver el skill `technical-prose-styling` antes de escribir uno.
+- `src/_data/site.json` — única fuente de verdad para nombre, rol, edad, ubicación, email, teléfono y links (LinkedIn/GitHub). Cualquier página que muestre esta info debe leerla de aquí, no hardcodearla.
+- Dos layouts de página, ambos comparten `_includes/partials/head.njk` y `partials/scripts.njk` (el script anti-FOUC y los `<script>` finales viven ahí una sola vez):
+  - `_includes/base.njk` — columna única con header/nav arriba. Lo usa solo `_includes/post.njk` (la página de un artículo individual, sin sidebar, para lectura enfocada).
+  - `_includes/sidebar.njk` — el shell de dos columnas (`.app-shell`: `<aside>` + `<main>`) con logo, bio corta, nav y redes sociales persistentes. Lo usan `src/index.njk` (Blog), `src/sobre-mi.njk` (`/sobre-mi/`) y `src/proyectos.njk` (`/proyectos/`).
+- `src/index.njk` — la página del blog: título, chips de filtro por tag, buscador, y artículos agrupados por año vía el filtro `groupByYear` y la colección `postTags` (ambos en `eleventy.config.js`). El filtrado/búsqueda es 100% client-side (`src/assets/js/blog-filter.js`), cargado solo en esta página.
+- `src/posts/*.md` — artículos del blog. Ver el skill `technical-prose-styling` antes de escribir uno (incluye el campo `tags:` que alimenta los filtros).
 - `src/assets/css/tokens.css` — tokens de color (light/dark) y el mecanismo del toggle explícito. `src/assets/css/style.css` — el resto de tokens (tipografía, espaciado) y todos los componentes. Ver el skill `design-tokens-css` antes de tocar cualquiera de los dos.
 - `src/assets/fonts/` — Geist, Satoshi y JetBrains Mono, self-hosted (decisión deliberada: mismo origen que el resto del sitio, sin depender de Fontshare/Google Fonts en runtime ni en el build de CI).
 

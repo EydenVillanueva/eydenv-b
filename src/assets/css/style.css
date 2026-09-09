@@ -62,8 +62,18 @@
   font-display: swap;
 }
 
+html {
+  /* Relative to the browser's own default (usually 16px), not a hardcoded
+     px value, so a visitor's own text-size preference is still respected.
+     ~18px effective base — the whole rem-based type scale below rides on
+     this one number instead of a font-size bump on every rule. */
+  font-size: 112.5%;
+}
+
 :root {
   --max-width: 720px;
+  --shell-width: 1100px;
+  --aside-width: 260px;
 
   --font-heading: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -274,11 +284,6 @@ main {
   color: var(--accent);
 }
 
-.posts h2 {
-  font-size: 1.3rem;
-  margin-bottom: var(--space-6);
-}
-
 .post-list {
   list-style: none;
   padding: 0;
@@ -413,8 +418,242 @@ main {
   letter-spacing: 0.04em;
 }
 
-@media (max-width: 480px) {
-  .hero h1 {
-    font-size: 2rem;
+/* Sidebar shell (Blog / Proyectos / Sobre mí) */
+
+.app-shell {
+  max-width: var(--shell-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-12);
+}
+
+.site-aside {
+  flex: 0 0 var(--aside-width);
+  width: var(--aside-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  position: sticky;
+  top: var(--space-8);
+}
+
+.aside-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.aside-top .site-title {
+  width: 97px;
+  height: 24px;
+}
+
+.aside-bio {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.aside-bio a {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.aside-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: calc(var(--space-2) * -1);
+}
+
+.aside-nav a {
+  padding: var(--space-2);
+  border-radius: 6px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.aside-nav a:hover {
+  color: var(--accent);
+}
+
+.aside-nav a.active {
+  background: var(--bg-surface);
+  color: var(--accent);
+}
+
+.aside-social {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.aside-social a {
+  color: var(--text-muted);
+}
+
+.aside-social a:hover {
+  color: var(--accent);
+}
+
+.aside-social svg {
+  width: 18px;
+  height: 18px;
+}
+
+.aside-copyright {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.site-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: var(--max-width);
+  padding: 0 0 var(--space-16);
+}
+
+@media (max-width: 860px) {
+  .app-shell {
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .site-aside {
+    position: static;
+    width: 100%;
+    flex: 1 1 auto;
+  }
+
+  .aside-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }
+
+/* Blog listing (page-header, tag filters, search, year groups) */
+
+.page-header {
+  margin-bottom: var(--space-8);
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  margin: 0 0 var(--space-2);
+}
+
+.page-subtitle {
+  color: var(--text-muted);
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.tag-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.tag-filter {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  cursor: pointer;
+}
+
+.tag-filter:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.tag-filter.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg-canvas);
+}
+
+.search-box {
+  position: relative;
+  margin-bottom: var(--space-8);
+}
+
+.search-box svg {
+  position: absolute;
+  left: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.search-box input {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-8);
+}
+
+.search-box input:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.no-results {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.post-year-group {
+  margin-bottom: var(--space-8);
+}
+
+.post-year-group h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 1.3rem;
+  margin: 0 0 var(--space-4);
+}
+
+.count-pill {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.post-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+

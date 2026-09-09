@@ -23,6 +23,28 @@ module.exports = function (eleventyConfig) {
     }).format(dateObj);
   });
 
+  eleventyConfig.addFilter("groupByYear", (posts) => {
+    const byYear = new Map();
+    posts.forEach((post) => {
+      const year = post.date.getUTCFullYear();
+      if (!byYear.has(year)) byYear.set(year, []);
+      byYear.get(year).push(post);
+    });
+    return Array.from(byYear.entries())
+      .sort((a, b) => b[0] - a[0])
+      .map(([year, yearPosts]) => ({ year, posts: yearPosts.slice().reverse() }));
+  });
+
+  eleventyConfig.addCollection("postTags", (api) => {
+    const tags = new Set();
+    api.getFilteredByTag("post").forEach((post) => {
+      (post.data.tags || []).forEach((tag) => {
+        if (tag !== "post") tags.add(tag);
+      });
+    });
+    return Array.from(tags).sort();
+  });
+
   eleventyConfig.addGlobalData("year", () => new Date().getFullYear());
 
   return {
